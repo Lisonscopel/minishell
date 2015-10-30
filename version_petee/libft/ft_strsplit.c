@@ -8,6 +8,9 @@ unsigned int		ft_tablen_str(const char *s, char c)
 
 	i = 0;
 	nb = 0;
+
+	if (!s)
+		return (0);
 	while (s[i] == c)
 		i++;
 	while (s[i])

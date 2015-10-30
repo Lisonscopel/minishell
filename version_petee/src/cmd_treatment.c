@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/18 22:37:33 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 19:47:01 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	cmd_exec(char **cmd, char **bin_path, char **env)
 			if (res == -1)
 				error_cmd_nf(cmd[0], 1);
 		}
-
 		exit(0) ;
 	}
 }

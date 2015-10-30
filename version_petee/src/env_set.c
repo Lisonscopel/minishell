@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/15 10:55:25 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/17 11:40:48 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 19:26:27 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char		**env_set(t_env *env, char *var_name, char *new_content)
 	if (!env->env)
 	{
 		env->env = (char **)malloc(sizeof(char *) * 2);
+		env->env[0] = NULL;
 		env->env[1] = NULL;
 	}
 	if (!new_content)
