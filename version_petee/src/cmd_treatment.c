@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 19:47:01 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 20:46:32 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,20 @@ void	cmd_exec(char **cmd, char **bin_path, char **env)
 			if (res == -1)
 				error_cmd_nf(cmd[0], 1);
 		}
-		exit(0) ;
+		exit(0);
 	}
 }
 
 void	cmd_split(t_env *env)
 {
-		if ((env->cmd = ft_strsplit_blank(env->cmdline)) == NULL)
-			return ;
-		if (!env->bin)
-			env->bin = parse_path_to_bin(env_find_str("PATH", env->env));
-	/*if (access(ft_strrchr_exclude(env_find_str("PWD", env->env), '='), R_OK) == 0)
-	{*/
-		if (!ft_isbuiltin(env->cmd, env))
-			return ;
-//	}
-		cmd_exec(env->cmd, env->bin, env->env);
-		ft_memdel((void *)env->cmd);
+	if ((env->cmd = ft_strsplit_blank(env->cmdline)) == NULL)
+		return ;
+	if (!env->bin)
+		env->bin = parse_path_to_bin(env_find_str("PATH", env->env));
+	if (!ft_isbuiltin(env->cmd, env))
+		return ;
+	cmd_exec(env->cmd, env->bin, env->env);
+	ft_memdel((void *)env->cmd);
 }
 
 void	cmd_receive(t_env env)
@@ -72,7 +69,7 @@ void	cmd_receive(t_env env)
 
 	while (42)
 	{
-		prompt_display(&env); 
+		prompt_display(&env);
 		if ((ret = read(0, env.cmdline, 1023)) > 0 && env.cmdline[0] != '\n')
 		{
 			env.cmdline[ret] = '\0';

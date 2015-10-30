@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:03:36 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 19:53:06 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 20:39:55 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 char	*env_find_str(char *var, char **env)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], var, ft_strlen(var)))
@@ -29,7 +30,9 @@ char	*env_find_str(char *var, char **env)
 
 int		env_find_index(char *var, char **env)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], var, ft_strlen(var)))
@@ -49,17 +52,19 @@ char	**parse_path_to_bin(char *var)
 	i = 0;
 	bin = ft_strsplit(var, ':');
 	if (bin)
-	while (bin[i])
 	{
-		bin[i] = ft_strjoin(bin[i], "/");
-		i++;
+		while (bin[i])
+		{
+			bin[i] = ft_strjoin(bin[i], "/");
+			i++;
+		}
 	}
 	else
 		ft_putcolorendl("[ERROR] PATH not defined", 31);
 	return (bin);
 }
 
-char		*parse_var_name(char *var, int equal)
+char	*parse_var_name(char *var, int equal)
 {
 	char	*var_name;
 	int		i;

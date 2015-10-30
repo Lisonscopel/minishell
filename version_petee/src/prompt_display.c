@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt_display.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/10/30 20:35:52 by lscopel           #+#    #+#             */
+/*   Updated: 2015/10/30 20:35:56 by lscopel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell1.h"
 
 void	prompt_display(t_env *env)
@@ -8,7 +20,6 @@ void	prompt_display(t_env *env)
 	(void)env;
 	if ((pwd = getcwd(buff, BUFFLENGHT)) == NULL)
 		pwd = ft_strdup("/[FORBIDDEN_DIR]");
-//		pwd = ft_strrchr_exclude(env_find_str("PWD", env->env), '=');
 	pwd = ft_strrchr_exclude(pwd, '/');
 	if (!ft_strcmp(pwd, "lscopel"))
 		pwd = ft_strdup("~");

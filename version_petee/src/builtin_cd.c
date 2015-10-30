@@ -6,18 +6,17 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/18 15:15:48 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 19:53:31 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 20:23:33 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
 
-char			*builtin_cd_specials(char **cmd, t_env *env)
+char	*builtin_cd_specials(char **cmd, t_env *env)
 {
 	char		*str;
 
 	str = NULL;
-
 	// TODO: replace ~ by $HOME not just use $HOME as path
 	if (ft_tablen(cmd) == 1 || !ft_strcmp(cmd[1], "~"))
 	{
@@ -33,12 +32,11 @@ char			*builtin_cd_specials(char **cmd, t_env *env)
 	return (str);
 }
 
-void		builtin_cd_swap(char **cmd, t_env *env)
+void	builtin_cd_swap(char **cmd, t_env *env)
 {
 	char	*pwd;
 	char	*dir;
 	int		res;
-	(void)env;
 
 	pwd = get_pwd(env);
 	if (ft_strstr(pwd, cmd[1]) == NULL)
@@ -55,11 +53,12 @@ void		builtin_cd_swap(char **cmd, t_env *env)
 	}
 }
 
-void		builtin_cd_simple_param(char **cmd, t_env *env)
+void	builtin_cd_simple_param(char **cmd, t_env *env)
 {
 	int res;
 
-	if (ft_tablen(cmd) == 1 || (!ft_isalpha(cmd[1][0]) && ft_strncmp(cmd[1], ".", 1)))
+	if (ft_tablen(cmd) == 1
+			|| (!ft_isalpha(cmd[1][0]) && ft_strncmp(cmd[1], ".", 1)))
 		res = chdir(builtin_cd_specials(cmd, env));
 	else
 		res = chdir(cmd[1]);
@@ -67,7 +66,7 @@ void		builtin_cd_simple_param(char **cmd, t_env *env)
 		error_builtin_cd(cmd, 1);
 }
 
-int			builtin_cd(char **cmd, t_env *env)
+int		builtin_cd(char **cmd, t_env *env)
 {
 	char	*pwd;
 

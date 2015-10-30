@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/15 10:55:25 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 19:26:27 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 20:40:37 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,3 @@ char		**env_set(t_env *env, char *var_name, char *new_content)
 		env_reset_var(env->env, i, new_content);
 	return (env->env);
 }
-
-

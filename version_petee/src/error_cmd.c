@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 10:49:37 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/18 21:40:30 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 20:35:41 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*error_print(char *s1, char *s2, char *s3)
 int		error_cmd_nf(char *cmd, int error)
 {
 //	char	**cmd_parsed;
-
 	if (error == 1)
 		error_print("ft_minishell1: ", "command not found: ", cmd);
 /*	if (error == 2)
@@ -46,8 +45,7 @@ int		error_cmd_nf(char *cmd, int error)
 	return (0);
 }
 
-
-void			error_builtin_cd(char **cmd, int error)
+void	error_builtin_cd(char **cmd, int error)
 {
 	char	*perm;
 
@@ -58,7 +56,7 @@ void			error_builtin_cd(char **cmd, int error)
 			error_print("cd: ", "permission denied: ", cmd[1]);
 		else if (perm && perm[0] == '-')
 			error_print("cd: ", "not a directory: ", cmd[1]);
-		else	
+		else
 			error_print("cd: ", "no such file or directory: ", cmd[1]);
 	}
 	if (error == 2)

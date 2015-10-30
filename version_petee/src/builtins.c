@@ -6,26 +6,13 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 15:35:29 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 19:45:11 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 20:50:31 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
 
-/*
-   char		*builtin_check_permissions(char *path)
-   {
-   char	*perm;
-
-   perm = parse_permissions(path);
-   if (perm == NULL)
-   ft_putcolorendl("NOPE", 31);
-   if (ft_strncmp(path, "d", 1))
-   return (ft_strjoin("cd: not a directory: ", path));
-   return (NULL);
-   }*/
-
-void		builtin_env(char **cmd, t_env *env)
+void	builtin_env(char **cmd, t_env *env)
 {
 	char **swp;
 
@@ -45,12 +32,11 @@ void		builtin_env(char **cmd, t_env *env)
 		ft_puttab(env->env, 37);
 }
 
-
 void	builtin_exit(char **cmd, t_env *env)
 {
-	(void)env;
 	int	i;
 
+	(void)env;
 	if ((i = ft_tablen(cmd)) > 2)
 		ft_putendl("exit: too many arguments");
 	else if (i == 2 && ft_atoi(cmd[1]))
@@ -62,6 +48,7 @@ void	builtin_exit(char **cmd, t_env *env)
 int		ft_isbuiltin(char **cmd, t_env *env)
 {
 	t_fct	*builtin_list;
+
 	list_init_builtins(&builtin_list);
 	while (builtin_list != NULL)
 	{
