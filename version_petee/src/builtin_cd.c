@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/18 15:15:48 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 20:23:33 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/17 15:34:29 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ char	*builtin_cd_specials(char **cmd, t_env *env)
 	char		*str;
 
 	str = NULL;
-	// TODO: replace ~ by $HOME not just use $HOME as path
-	if (ft_tablen(cmd) == 1 || !ft_strcmp(cmd[1], "~"))
+	if (ft_tablen(cmd) == 1)
 	{
 		if ((str = env_find_str("HOME", env->env)) != NULL)
 			str = ft_strrchr_exclude(str, '=');
@@ -57,11 +56,12 @@ void	builtin_cd_simple_param(char **cmd, t_env *env)
 {
 	int res;
 
-	if (ft_tablen(cmd) == 1
-			|| (!ft_isalpha(cmd[1][0]) && ft_strncmp(cmd[1], ".", 1)))
+	if (ft_tablen(cmd) == 1 || !ft_strncmp(cmd[1], "-", 1))
 		res = chdir(builtin_cd_specials(cmd, env));
 	else
+	{
 		res = chdir(cmd[1]);
+	}
 	if (res == -1)
 		error_builtin_cd(cmd, 1);
 }
@@ -71,7 +71,6 @@ int		builtin_cd(char **cmd, t_env *env)
 	char	*pwd;
 
 	pwd = get_pwd(env);
-	env->oldpwd_backup = ft_strdup(pwd);
 	if (ft_tablen(cmd) > 3)
 	{
 		error_builtin_cd(cmd, 2);
@@ -81,6 +80,7 @@ int		builtin_cd(char **cmd, t_env *env)
 		builtin_cd_simple_param(cmd, env);
 	else
 		builtin_cd_swap(cmd, env);
+	env->oldpwd_backup = ft_strdup(pwd);
 	env->env = env_set(env, "OLDPWD", pwd);
 	pwd = get_pwd(env);
 	env->env = env_set(env, "PWD", pwd);

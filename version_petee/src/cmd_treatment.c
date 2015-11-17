@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 20:46:32 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/17 15:41:33 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,47 @@ void	cmd_exec(char **cmd, char **bin_path, char **env)
 	}
 }
 
+void	cmd_replace_shortcuts(t_env *env)
+{
+	int	i;
+	int	len;
+	char	*tilde;
+	char	*tminus;
+
+	i = 0;
+	tilde = ft_strrchr_exclude(env_find_str("HOME", env->env), '=');
+	if ((tminus = ft_strrchr_exclude(env_find_str("OLPWD", env->env), '=')) == NULL)
+		tminus = env->oldpwd_backup;
+	while (env->cmd[i])
+	{
+		len = ft_strlen(env->cmd[i]);
+		if (len <= 2 && !ft_strncmp(env->cmd[i], "~", 1))
+		{
+			if (len == 1 && tilde != NULL)
+			{
+				ft_bzero(env->cmd[i], ft_strlen(env->cmd[i]));
+				env->cmd[i] = ft_strdup(tilde);
+			}
+			else if (!ft_strcmp(env->cmd[i], "~-") && tminus != NULL)
+			{
+				ft_bzero(env->cmd[i], ft_strlen(env->cmd[i]));
+				env->cmd[i] = ft_strdup(tminus);
+			}
+			else if (!ft_strcmp(env->cmd[i], "~+"))
+			{
+				ft_bzero(env->cmd[i], ft_strlen(env->cmd[i]));
+				env->cmd[i] = ft_strdup(".");
+			}
+		}
+		i++;
+	}
+}
+
 void	cmd_split(t_env *env)
 {
 	if ((env->cmd = ft_strsplit_blank(env->cmdline)) == NULL)
 		return ;
+	cmd_replace_shortcuts(env);
 	if (!env->bin)
 		env->bin = parse_path_to_bin(env_find_str("PATH", env->env));
 	if (!ft_isbuiltin(env->cmd, env))
