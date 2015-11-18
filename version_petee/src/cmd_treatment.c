@@ -6,14 +6,14 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/11/17 15:41:33 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/18 22:52:52 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
 #include <stdio.h>
 
-void	cmd_exec(char **cmd, char **bin_path, char **env)
+int	cmd_exec(char **cmd, char **bin_path, char **env)
 {
 	int		i;
 	int		real_path;
@@ -22,6 +22,8 @@ void	cmd_exec(char **cmd, char **bin_path, char **env)
 	char	*cmdpath;
 
 	i = 0;
+	while (!ft_strcmp(*cmd, "env"))
+			cmd++;
 	if ((pid = fork()) > 0)
 		wait(0);
 	if (pid == 0)
@@ -45,10 +47,14 @@ void	cmd_exec(char **cmd, char **bin_path, char **env)
 				free(cmdpath);
 			}
 			if (res == -1)
+			{
 				error_cmd_nf(cmd[0], 1);
+				return (-1);
+			}
 		}
 		exit(0);
 	}
+	return (0);
 }
 
 void	cmd_replace_shortcuts(t_env *env)
