@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 15:37:50 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/17 19:58:07 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/24 21:07:04 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef	struct		s_error
 }					t_error;
 
 void				cmd_receive(t_env env);
-void				cmd_exec(char **cmd, char **bin_path, char **env);
+int					cmd_exec(char **cmd, char **bin_path, char **env);
 char				*env_find_str(char *var, char **env);
 int					env_find_index(char *var, char **env);
 void				env_building_min(t_env *env);
@@ -63,8 +63,9 @@ void				builtin_env(char **cmd, t_env *env);
 void				builtin_exit(char **cmd, t_env *env);
 int					builtin_unset(char **cmd, t_env *env);
 int					builtin_export(char **cmd, t_env *env);
-void				prompt_display();
+void				prompt_display(t_env *env);
 int					error_cmd_nf(char *cmd, int error);
-void				error_builtin_cd(char **cmd, int error);
+void				error_builtin(char **cmd, int error);
+char				*get_pwd(t_env *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 10:49:37 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/18 00:14:04 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/24 21:06:30 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*error_print(char *s1, char *s2, char *s3)
 int		error_cmd_nf(char *cmd, int error)
 {
 //	char	**cmd_parsed;
-
 	if (error == 1)
 		error_print("ft_minishell1: ", "command not found: ", cmd);
 /*	if (error == 2)
@@ -46,24 +45,22 @@ int		error_cmd_nf(char *cmd, int error)
 	return (0);
 }
 
-
-void			error_builtin_cd(char **cmd, int error)
+void	error_builtin(char **cmd, int error)
 {
 	char	*perm;
-	struct	stat file_stat;
 
 	if (error == 1)
 	{
 		perm = parse_permissions(cmd[1]);
-		if (perm[0] == 'd' && perm[1] == '-')
-			error_print("cd: ", "permission denied: ", cmd[1]);
-		else if (stat(cmd[1], &file_stat) == 0 && perm[0] == '-')
-			error_print("cd: ", "not a directory: ", cmd[1]);
-		else	
-			error_print("cd: ", "no such file or directory: ", cmd[1]);
+		if (perm && perm[0] == 'd' && (perm[1] == '-' || perm[3] == '-'))
+			error_print(cmd[0], ": permission denied: ", cmd[1]);
+		else if (perm && perm[0] == '-')
+			error_print(cmd[0], ": not a directory: ", cmd[1]);
+		else
+			error_print(cmd[0], ": no such file or directory: ", cmd[1]);
 	}
 	if (error == 2)
-		error_print("cd: ", "too many arguments", "");
+		error_print(cmd[0], ": too many arguments", "");
 	if (error == 3)
-		error_print("cd: ", "string not in pwd: ", cmd[1]);
+		error_print(cmd[0], ": string not in pwd: ", cmd[1]);
 }

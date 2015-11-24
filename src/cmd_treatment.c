@@ -6,14 +6,13 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/17 17:36:58 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/25 00:26:00 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
-#include <stdio.h>
 
-void	cmd_exec(char **cmd, char **bin_path, char **env)
+int	cmd_exec(char **cmd, char **bin_path, char **env)
 {
 	int		i;
 	int		real_path;
@@ -22,6 +21,8 @@ void	cmd_exec(char **cmd, char **bin_path, char **env)
 	char	*cmdpath;
 
 	i = 0;
+	while (!ft_strcmp(*cmd, "env"))
+			cmd++;
 	if ((pid = fork()) > 0)
 		wait(0);
 	if (pid == 0)
@@ -45,17 +46,75 @@ void	cmd_exec(char **cmd, char **bin_path, char **env)
 				free(cmdpath);
 			}
 			if (res == -1)
+			{
 				error_cmd_nf(cmd[0], 1);
+				return (-1);
+			}
 		}
-
-		exit(0) ;
+		exit(0);
 	}
+	return (0);
+}
+
+
+void	cmd_replace_shortcuts(t_env *env)
+{
+	int	i;
+	int	j = 0;
+	int	len;
+	char	*tilde;
+	char	*tminus;
+	char	*res;
+
+	tilde = ft_strrchr_exclude(env_find_str("HOME", env->env), '=');
+	if ((tminus = ft_strrchr_exclude(env_find_str("OLPWD", env->env), '=')) == NULL)
+		tminus = env->oldpwd_backup;
+	i = 0;
+	while (env->cmd[i])
+	{
+		len = ft_strlen(env->cmd[i]);
+		if (!ft_strncmp(env->cmd[i], "~", 1) && tilde != NULL)
+		{
+			if (!ft_strcmp(env->cmd[i], "~-"))
+ 			{
+				if (tminus == NULL)
+					return ;
+				res = ft_strdup(tminus);
+			}
+			else if (!ft_strcmp(env->cmd[i], "~+"))
+				res = ft_strdup(".");
+			else
+				res = ft_strjoin(tilde, ft_strsub(env->cmd[i], 1, ft_strlen(env->cmd[i]) - 1));
+			ft_bzero(env->cmd[i], ft_strlen(env->cmd[i]));
+			env->cmd[i] = res;
+		}
+		else if (!ft_strncmp(env->cmd[i], "$", 1))
+		{
+			res = ft_strsub(env->cmd[i], 1, ft_strlen(env->cmd[i]) - 1);
+			while (env->env[j])
+			{
+				if (!ft_strncmp(res, env->env[j], ft_strlen(res) - 1))
+				{
+					ft_bzero(res, ft_strlen(res));
+					ft_bzero(env->cmd[i], ft_strlen(env->cmd[i]));
+					env->cmd[i] = ft_strrchr_exclude(env->env[j], '=');
+				}
+				j++;
+			}
+		}
+		else
+			res = NULL;
+		i++;
+	}
+	if (res != NULL)
+		free(res);
 }
 
 void	cmd_split(t_env *env)
 {
 	if ((env->cmd = ft_strsplit_blank(env->cmdline)) == NULL)
 		return ;
+	cmd_replace_shortcuts(env);
 	if (!env->bin)
 		env->bin = parse_path_to_bin(env_find_str("PATH", env->env));
 	if (!ft_isbuiltin(env->cmd, env))
@@ -70,7 +129,7 @@ void	cmd_receive(t_env env)
 
 	while (42)
 	{
-		prompt_display(); 
+		prompt_display(&env);
 		if ((ret = read(0, env.cmdline, 1023)) > 0 && env.cmdline[0] != '\n')
 		{
 			env.cmdline[ret] = '\0';

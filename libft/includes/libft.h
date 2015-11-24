@@ -58,7 +58,9 @@ char				*ft_itoa(int n);
 ** ft_str
 */
 int					ft_strcmp(const char *s1, const char *s2);
+int					ft_strcmp_case_insensitive(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strncmp_case_insensitive(const char *s1, const char *s2, size_t n);
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 size_t				ft_strlen(const char *s);
@@ -80,7 +82,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char				*ft_strreplace(char *str, char *rem, char *rep);
+char				*ft_strreplace(char *src, char *occ, char *new);
 char				*ft_strnchr(const char *s, int c, int i);
 char				**ft_strsplit(char const *s, char c);
 char				**ft_strssplit(char const *s, char *pattern);

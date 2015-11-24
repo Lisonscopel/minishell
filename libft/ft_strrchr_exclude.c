@@ -6,12 +6,15 @@ char		*ft_strrchr_exclude(const char *s, int c)
 	char	*s_new;
 
 	s_new = (char *)s;
-	lenght = ft_strlen(s);
-	while (lenght >= 0)
+	if (s)
 	{
-		if (s_new[lenght] == c)
-			return (s_new + lenght + 1);
-		lenght--;
+		lenght = ft_strlen(s);
+		while (lenght >= 0)
+		{
+			if (s_new[lenght] == c)
+				return (s_new + lenght + 1);
+			lenght--;
+		}
 	}
 	return (NULL);
 }

@@ -8,6 +8,9 @@ unsigned int		ft_tablen_str(const char *s, char c)
 
 	i = 0;
 	nb = 0;
+
+	if (!s)
+		return (0);
 	while (s[i] == c)
 		i++;
 	while (s[i])
@@ -53,9 +56,9 @@ char				**ft_strsplit(const char *s, char c)
 	i = 0;
 	j = 0;
 	len = ft_tablen_str(s, c);
-	if (!(s) || !(tab = (char**)ft_memalloc(sizeof(*tab) * (len + 1))))
+	if (!(s) || !(tab = (char**)malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
-	//tab[len + 1] = NULL;
+	tab[len + 1] = NULL;
 	while (s[i] == c)
 		i++;
 	while (s[i])

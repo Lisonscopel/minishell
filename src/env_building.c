@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:19:01 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/17 11:40:01 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/25 00:17:01 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,20 @@ void	env_shlvl(char *src)
 	src[j] = (*ft_itoa(lvl + 1));
 }
 
-void		env_min(t_env *env)
+void	env_min(t_env *env)
 {
+	env->env = NULL;
 	env_set(env, "PATH", "toto");
 	env_set(env, "SHLVL", "0");
 }
 
-void		env_building(char **src, t_env *env)
+void	env_building(char **src, t_env *env)
 {
 	ft_bzero(env, sizeof(t_env));
-	if (!*src)
+	if (!src || !*src)
 		env_min(env);
 	else
-		env->env = ft_tabdup(src); 
+		env->env = ft_tabdup(src);
 	env_shlvl(env_find_str("SHLVL", env->env));
-	env->env = env_set(env, "SHELL", "ft_minishell1");
+	env_set(env, "SHELL", "ft_minishell1");
 }

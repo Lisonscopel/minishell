@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/11 12:50:26 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/17 11:48:36 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 20:24:57 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int		builtin_unset(char **cmd, t_env *env)
 		while (env->env[j])
 		{
 			var_parsed = ft_strsplit(env->env[j], '=');
-			/*if (!ft_strcmp(var_parsed[0], "OLDPWD"))
-				env->oldpwd_backup = ft_strdup()*/
 			if (!ft_strncmp(cmd[i], var_parsed[0], ft_strlen(var_parsed[0])))
 			{
 				while (env->env[j])

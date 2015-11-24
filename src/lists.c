@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 15:17:03 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/16 11:22:05 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/18 16:55:21 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,4 @@ void	list_init_builtins(t_fct **list)
 	*list = list_add(list, "env", (void *)builtin_env);
 	*list = list_add(list, "unset", (void *)builtin_unset);
 	*list = list_add(list, "export", (void *)builtin_export);
-	*list = list_add(list, "setenv", (void *)builtin_export);
 }
