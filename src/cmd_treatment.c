@@ -6,11 +6,36 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/11/25 00:26:00 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/01 01:32:55 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
+
+int	cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env)
+{
+	int i = 0;
+	int res = 0;
+	char	*cmdpath;
+	while (bin_path[i])
+	{
+		cmdpath = ft_strjoin(bin_path[i], cmd[0]);
+		res = access(cmdpath, R_OK);
+		if (res != -1)
+		{
+			if (exec_indice)
+			{
+				if ((res = execve(cmdpath, cmd, env)) == -1)
+					error_cmd_nf(cmd[0], 1);
+				return (-1);
+			}
+			return (0);
+		}
+		i++;
+		free(cmdpath);
+	}
+	return (-1);
+}
 
 int	cmd_exec(char **cmd, char **bin_path, char **env)
 {
@@ -18,11 +43,8 @@ int	cmd_exec(char **cmd, char **bin_path, char **env)
 	int		real_path;
 	int		res;
 	pid_t	pid;
-	char	*cmdpath;
 
 	i = 0;
-	while (!ft_strcmp(*cmd, "env"))
-			cmd++;
 	if ((pid = fork()) > 0)
 		wait(0);
 	if (pid == 0)
@@ -35,22 +57,7 @@ int	cmd_exec(char **cmd, char **bin_path, char **env)
 			ft_putendl(*cmd);
 		}
 		else
-		{
-			while (bin_path[i])
-			{
-				cmdpath = ft_strjoin(bin_path[i], cmd[0]);
-				res = execve(cmdpath, cmd, env);
-				if (res != -1)
-					break ;
-				i++;
-				free(cmdpath);
-			}
-			if (res == -1)
-			{
-				error_cmd_nf(cmd[0], 1);
-				return (-1);
-			}
-		}
+			res = cmd_bin_path(1, cmd, bin_path, env);
 		exit(0);
 	}
 	return (0);
@@ -76,7 +83,7 @@ void	cmd_replace_shortcuts(t_env *env)
 		if (!ft_strncmp(env->cmd[i], "~", 1) && tilde != NULL)
 		{
 			if (!ft_strcmp(env->cmd[i], "~-"))
- 			{
+			{
 				if (tminus == NULL)
 					return ;
 				res = ft_strdup(tminus);

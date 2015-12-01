@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/10 10:49:28 by lscopel           #+#    #+#             */
-/*   Updated: 2015/11/18 23:48:33 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/30 19:24:55 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ int		builtin_export(char **cmd, t_env *env)
 		{
 		cmd++;
 		builtin_export(cmd, env);
-		}
-		if (cmd[0] && cmd[1] && !ft_strcmp(cmd[0], "env") && !ft_strcmp(cmd[1], "-i"))
-		{
-			ft_bzero((void*)env->env, sizeof(env->env));
-			ft_bzero(cmd[1], ft_strlen(cmd[1]));
-			ft_puttab(cmd, 32);
-			builtin_export(cmd, env);
 		}
 		else if (ft_strcmp(*cmd, "export") || ft_strcmp(*cmd, "env"))
 		{
