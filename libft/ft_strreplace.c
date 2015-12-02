@@ -1,52 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strreplace.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/10/18 19:40:33 by lscopel           #+#    #+#             */
+/*   Updated: 2015/10/18 19:40:51 by lscopel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char	*first(char *str, char *rem, char *rep)
-{
-	int		j;
-
-	j = 0;
-	while (str[j] == rem[j])
-		j++;
-	if (rem[j] == '\0')
-		return (rep);
-	else
-		return ("");
-}
-
-int		tablen(char **tab)
-{
-	int size;
-
-	size = 0;
-	while (tab[size])
-		size++;
-	return (size);
-}
-
-char	*ft_strreplace(char *s, char *rem, char *rep)
+int			find_first_occur(const char *s1, const char *s2)
 {
 	int		i;
-	char	**tmp;
-	char	*result;
-	char	*end;
-	int		size;
+	int		j;
+	int		k;
+	char	*s_new;
 
-	tmp = ft_strssplit(s, rem);
 	i = 0;
-	size = tablen(tmp);
-	while (i < size)
+	j = 0;
+	s_new = (char *)s1;
+	if (s2 == NULL || s2[j] == '\0')
+		return (-1);
+	while (s1[i] != '\0')
 	{
-		result = (i == 0) ? first(s, rem, rep) : result;
-		result = ft_strjoin(result, tmp[i]);
-		if (i == size - 1)
+		k = i;
+		while (s2[j] == s1[k] && s2[j] != '\0')
 		{
-			end = ft_strsub(s, ft_strlen(s) - ft_strlen(rem), ft_strlen(s));
-			if (ft_strcmp(end, rem) == 0)
-				result = ft_strjoin(result, rep);
+			k++;
+			j++;
 		}
-		else
-			result = ft_strjoin(result, rep);
+		if (s2[j] == '\0')
+			return (i);
+		j = 0;
 		i++;
 	}
-	return (result);
+	return (0);
+}
+
+char		*ft_strreplace(char *src, char *occ, char *new)
+{
+	int		len;
+	char 	*res;
+	int		index;
+
+	if ((len = (ft_strlen(src) - ft_strlen(occ)) + ft_strlen(new) + 1) <= 0)
+		return NULL;
+	if (!(res = (char *)malloc(sizeof(char) * len)))
+		return NULL;
+	index = find_first_occur(src, occ);
+	res = ft_strsub(src, 0, index);
+	res = ft_strcat(res, new);
+	if (src[index = index + ft_strlen(occ)] == '\0')
+		return (res);
+	res = ft_strcat(res, ft_strsub(src, index, ft_strlen(src) - index));
+	return (res);
 }

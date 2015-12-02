@@ -8,6 +8,8 @@ int		ft_atoi(const char *str)
 
 	value = 0;
 	digit = 0;
+	if (!str)
+		return (0);
 	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\v'
 			|| *str == '\r' || *str == '\f')
 		str++;

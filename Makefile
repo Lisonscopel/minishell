@@ -6,7 +6,7 @@
 #    By: lscopel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/09/18 14:35:23 by lscopel           #+#    #+#              #
-#    Updated: 2015/10/15 10:56:54 by lscopel          ###   ########.fr        #
+#    Updated: 2015/10/18 22:31:07 by lscopel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,14 @@ SRC_NAME =	parse.c \
 			builtins.c \
 			builtin_export.c \
 			builtin_unset.c \
+			builtin_cd.c \
 			cmd_treatment.c \
 			env_building.c \
 			env_set.c \
 			error_cmd.c \
 			lists.c \
 			prompt_display.c \
+			utils.c \
 			main.c 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 

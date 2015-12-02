@@ -6,7 +6,7 @@
 /*   By: lscopel <lscopel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/29 21:08:23 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/15 15:36:21 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/10/30 20:47:20 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int			main(int ac, char **av, char **ep)
 {
 	t_env	env;
-	//extern char	**environ;
 
 	(void)av;
 	(void)ac;

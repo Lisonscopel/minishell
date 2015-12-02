@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/12 14:44:33 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/12 14:45:47 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/30 22:31:38 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ void	ft_puttab(char **src, int color)
 	int	i;
 
 	i = 0;
-	while (src[i])
+	if (src)
 	{
-		ft_putcolorendl(src[i], color);
-		i++;
+		while (src[i])
+		{
+			ft_putcolorendl(src[i], color);
+			i++;
+		}
 	}
 }

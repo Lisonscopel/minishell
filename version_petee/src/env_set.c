@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/15 10:55:25 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 20:40:37 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/11/18 21:27:19 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void		env_new_var(t_env *env, char *var_name, char *new_content)
 	if (env->env)
 	{
 		i = ft_tablen(env->env);
-		dup = ft_tabdup(env->env);
-		ft_free_tab(env->env);
+		dup = env->env;
 		env->env = (char **)malloc(sizeof(char *) * (i + 2));
 		i = 0;
 		while (dup[i])
@@ -29,7 +28,7 @@ void		env_new_var(t_env *env, char *var_name, char *new_content)
 			env->env[i] = ft_strdup(dup[i]);
 			i++;
 		}
-		free(dup);
+		ft_free_tab(dup);
 	}
 	else
 		i = 0;
@@ -51,18 +50,16 @@ void		env_reset_var(char **env, int i, char *new_content)
 char		**env_set(t_env *env, char *var_name, char *new_content)
 {
 	int		i;
-	char	**dup;
 
+	if (!new_content)
+		new_content = ft_strdup("");
 	if (!env->env)
 	{
 		env->env = (char **)malloc(sizeof(char *) * 2);
 		env->env[0] = NULL;
 		env->env[1] = NULL;
 	}
-	if (!new_content)
-		new_content = ft_strdup("");
 	i = env_find_index(var_name, env->env);
-	dup = NULL;
 	if (i == -1)
 		env_new_var(env, var_name, new_content);
 	else

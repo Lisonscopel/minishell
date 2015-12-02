@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/18 22:27:03 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 20:37:45 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/02 13:33:27 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,23 @@ char	*get_pwd(t_env *env)
 		pwd = ft_strdup(ft_strrchr_exclude(env_find_str("PWD", env->env), '='));
 	return (pwd);
 }
+
+int		path_in_cmd_is_exec(char **cmd, t_env *env)
+{
+	int res;
+	int	i;
+	int j;
+
+	i = ft_tablen(cmd);
+	j = 1;
+	while (i > j)
+	{
+		if ((res = access(cmd[j], R_OK)) != 0)
+			res = cmd_bin_path(0, &cmd[j], env->bin, env->env);
+		if (res == 0 || !ft_strncmp(cmd[j], ".", 1))
+			return (j);
+		j++;
+	}
+	return (0);
+}
+

@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strncmp_case_insensitive.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/15 20:26:14 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/11 23:16:31 by lscopel          ###   ########.fr       */
+/*   Created: 2015/11/24 16:09:17 by lscopel           #+#    #+#             */
+/*   Updated: 2015/11/24 18:17:20 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GET_NEXT_LINE_H
-# define FT_GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
+int					ft_strncmp_case_insensitive(const char *s1, const char *s2, size_t n)
+{
+	int	i;
 
-int	get_next_line(int fd, char **line);
-
-#endif
+	i = 0;
+	if (n == 0)
+		return (0);
+	while ((s1[i] || s2[i]) && (ft_toupper(s1[i]) == ft_toupper(s2[i])) && --n > 0)
+		i++;
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}

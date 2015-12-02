@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/18 15:15:48 by lscopel           #+#    #+#             */
-/*   Updated: 2015/11/17 15:34:29 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/02 19:51:49 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	builtin_cd_swap(char **cmd, t_env *env)
 
 	pwd = get_pwd(env);
 	if (ft_strstr(pwd, cmd[1]) == NULL)
-		error_builtin_cd(cmd, 3);
+		error_builtin(cmd, 3);
 	else
 	{
 		dir = ft_strreplace(pwd, cmd[1], cmd[2]);
@@ -47,7 +47,7 @@ void	builtin_cd_swap(char **cmd, t_env *env)
 		if (res == -1)
 		{
 			cmd[1] = dir;
-			error_builtin_cd(cmd, 1);
+			error_builtin(cmd, 1);
 		}
 	}
 }
@@ -59,11 +59,9 @@ void	builtin_cd_simple_param(char **cmd, t_env *env)
 	if (ft_tablen(cmd) == 1 || !ft_strncmp(cmd[1], "-", 1))
 		res = chdir(builtin_cd_specials(cmd, env));
 	else
-	{
 		res = chdir(cmd[1]);
-	}
 	if (res == -1)
-		error_builtin_cd(cmd, 1);
+		error_builtin(cmd, 1);
 }
 
 int		builtin_cd(char **cmd, t_env *env)
@@ -73,7 +71,7 @@ int		builtin_cd(char **cmd, t_env *env)
 	pwd = get_pwd(env);
 	if (ft_tablen(cmd) > 3)
 	{
-		error_builtin_cd(cmd, 2);
+		error_builtin(cmd, 2);
 		return (-1);
 	}
 	else if (ft_tablen(cmd) <= 2)
