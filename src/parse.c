@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:03:36 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/30 20:39:55 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/02 13:14:16 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*parse_var_name(char *var, int equal)
 	return (var_name);
 }
 
-char	*parse_permissions(char *path)
+char	*parse_permissions(const char *path)
 {
 	char		*perm;
 	struct stat	file_stat;

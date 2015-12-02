@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:19:01 by lscopel           #+#    #+#             */
-/*   Updated: 2015/11/25 00:17:01 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/02 21:04:18 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,25 @@ void	env_shlvl(char *src)
 	int		j;
 	int		lvl;
 
-	i = 0;
-	lvl = 0;
-	while (ft_isdigit(src[i]) == 0)
-		i++;
-	j = i;
-	while (src && ft_isdigit(src[i]))
+	if (src)
 	{
-		lvl = lvl * 10 + ft_atoi(&src[i]);
-		i++;
+		i = 0;
+		lvl = 0;
+		while (ft_isdigit(src[i]) == 0)
+			i++;
+		j = i;
+		while (src && ft_isdigit(src[i]))
+		{
+			lvl = lvl * 10 + ft_atoi(&src[i]);
+			i++;
+		}
+		src[j] = (*ft_itoa(lvl + 1));
 	}
-	src[j] = (*ft_itoa(lvl + 1));
 }
 
 void	env_min(t_env *env)
 {
 	env->env = NULL;
-	env_set(env, "PATH", "toto");
 	env_set(env, "SHLVL", "0");
 }
 

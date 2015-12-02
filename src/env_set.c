@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/15 10:55:25 by lscopel           #+#    #+#             */
-/*   Updated: 2015/11/18 21:27:19 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/02 20:08:04 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void		env_reset_var(char **env, int i, char *new_content)
 
 	ptr = (void *)env[i];
 	env[i] = parse_var_name(env[i], 1);
-	env[i] = ft_strjoin(env[i], new_content);
+	if (!ft_strcmp(env[i], "SHLVL=") && ft_isalpha(new_content[0]))
+		env[i] = ft_strjoin(env[i], "0");
+	else
+		env[i] = ft_strjoin(env[i], new_content);
 	free(ptr);
 }
 

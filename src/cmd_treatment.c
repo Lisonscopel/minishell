@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/01 01:32:55 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/02 18:26:56 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env)
 		{
 			if (exec_indice)
 			{
-				if ((res = execve(cmdpath, cmd, env)) == -1)
-					error_cmd_nf(cmd[0], 1);
+				res = execve(cmdpath, cmd, env);
 				return (-1);
 			}
 			return (0);
@@ -49,15 +48,12 @@ int	cmd_exec(char **cmd, char **bin_path, char **env)
 		wait(0);
 	if (pid == 0)
 	{
-		if ((real_path = access(*cmd, R_OK)) == 0)
-			res = execve(*cmd, cmd, env);
+		if (!(real_path = access(*cmd, R_OK)) && (res = execve(*cmd, cmd, env)) == -1)
+			error_cmd_nf(cmd[0], 3);
 		else if (real_path == -1 && *cmd[0] == '.')
-		{
-			ft_putstr("minishell: no such file or directory: ");
-			ft_putendl(*cmd);
-		}
-		else
-			res = cmd_bin_path(1, cmd, bin_path, env);
+			error_cmd_nf(cmd[0], 2);
+		else if ((res = cmd_bin_path(1, cmd, bin_path, env)) == -1)
+			error_cmd_nf(cmd[0], 1);
 		exit(0);
 	}
 	return (0);
@@ -109,17 +105,13 @@ void	cmd_replace_shortcuts(t_env *env)
 				j++;
 			}
 		}
-		else
-			res = NULL;
 		i++;
 	}
-	if (res != NULL)
-		free(res);
 }
 
 void	cmd_split(t_env *env)
 {
-	if ((env->cmd = ft_strsplit_blank(env->cmdline)) == NULL)
+	if (!ft_tablen((env->cmd = ft_strsplit_blank(env->cmdline))))
 		return ;
 	cmd_replace_shortcuts(env);
 	if (!env->bin)
@@ -130,6 +122,11 @@ void	cmd_split(t_env *env)
 	ft_memdel((void *)env->cmd);
 }
 
+void	kill_sig(int i)
+{
+	kill(SIGINT, i);
+}
+
 void	cmd_receive(t_env env)
 {
 	int		ret;
@@ -137,10 +134,13 @@ void	cmd_receive(t_env env)
 	while (42)
 	{
 		prompt_display(&env);
+		signal(SIGINT, kill_sig);
 		if ((ret = read(0, env.cmdline, 1023)) > 0 && env.cmdline[0] != '\n')
 		{
 			env.cmdline[ret] = '\0';
 			cmd_split(&env);
 		}
+		else if (ret <= 0)
+			ft_putendl("");
 	}
 }

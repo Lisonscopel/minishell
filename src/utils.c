@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/18 22:27:03 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/01 00:41:43 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/02 13:33:27 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ int		path_in_cmd_is_exec(char **cmd, t_env *env)
 	j = 1;
 	while (i > j)
 	{
-		res = access(cmd[j], R_OK);
-		if (res != 0)
-		{
+		if ((res = access(cmd[j], R_OK)) != 0)
 			res = cmd_bin_path(0, &cmd[j], env->bin, env->env);
-		}
-		if (res == 0)
+		if (res == 0 || !ft_strncmp(cmd[j], ".", 1))
 			return (j);
 		j++;
 	}
