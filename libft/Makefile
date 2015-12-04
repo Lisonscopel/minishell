@@ -40,7 +40,6 @@ SRC = ft_atoi.c \
 	  ft_strchr.c \
 	  ft_strclr.c \
 	  ft_strcmp.c \
-	  ft_strcmp_case_insensitive.c \
 	  ft_strcpy.c \
 	  ft_strdel.c \
 	  ft_strdup.c \
@@ -55,7 +54,6 @@ SRC = ft_atoi.c \
 	  ft_strmapi.c \
 	  ft_strncat.c \
 	  ft_strncmp.c \
-	  ft_strncmp_case_insensitive.c \
 	  ft_strncpy.c \
 	  ft_strnequ.c \
 	  ft_strnew.c \

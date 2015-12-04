@@ -6,13 +6,13 @@
 /*   By: lscopel <lscopel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/12 13:55:29 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/16 14:07:16 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/03 21:49:21 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char 	**ft_tabdup(char **src)
+char	**ft_tabdup(char **src)
 {
 	int		i;
 	char	**dest;

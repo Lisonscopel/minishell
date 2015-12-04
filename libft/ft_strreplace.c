@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/18 19:40:33 by lscopel           #+#    #+#             */
-/*   Updated: 2015/10/18 19:40:51 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/03 21:54:35 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int			find_first_occur(const char *s1, const char *s2)
 char		*ft_strreplace(char *src, char *occ, char *new)
 {
 	int		len;
-	char 	*res;
+	char	*res;
 	int		index;
 
 	if ((len = (ft_strlen(src) - ft_strlen(occ)) + ft_strlen(new) + 1) <= 0)
-		return NULL;
+		return (NULL);
 	if (!(res = (char *)malloc(sizeof(char) * len)))
-		return NULL;
+		return (NULL);
 	index = find_first_occur(src, occ);
 	res = ft_strsub(src, 0, index);
 	res = ft_strcat(res, new);

@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/12/03 21:43:49 by lscopel           #+#    #+#             */
+/*   Updated: 2015/12/03 22:04:21 by lscopel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <string.h>
+
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	int					a;
@@ -17,23 +30,3 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
-/*
-   void	*ft_memcpy(void *dst, const void *src, size_t n)
-   {
-   char *d;
-   char *s;
-   int		i;
-   int		j;
-
-   d = (char*)dst;
-   s = (char*)src;
-   i = 0;
-   j = 0;
-   while (n)
-   {
-   d[i++] = s[j++];
-   n--;
-   }
-   return (dst);
-   }
-   */

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/12/03 15:51:17 by lscopel           #+#    #+#             */
+/*   Updated: 2015/12/03 22:06:18 by lscopel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int		ft_atoi(const char *str)
@@ -20,7 +32,7 @@ int		ft_atoi(const char *str)
 		str++;
 	if (ft_strlen(str) > 19)
 		return (positive == 1 ? -1 : 0);
-	while (ft_isdigit (*str) && *str != '\0')
+	while (ft_isdigit(*str) && *str != '\0')
 	{
 		digit = (int)(*str - '0');
 		value = (value * 10) + digit;
