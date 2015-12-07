@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 21:50:32 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/03 22:00:42 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/07 22:42:25 by barbare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char				**ft_strsplit(const char *s, char c)
 	len = ft_tablen_str(s, c);
 	if (!(s) || !(tab = (char**)malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
-	tab[len + 1] = NULL;
+	tab[len] = NULL;
 	while (s[i] == c)
 		i++;
 	while (s[i])

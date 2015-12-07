@@ -6,21 +6,25 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/02 18:26:56 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/07 23:37:17 by barbare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
+#include <stdio.h>
 
 int	cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env)
 {
 	int i = 0;
 	int res = 0;
 	char	*cmdpath;
+
+	if (!bin_path || !*bin_path)
+		return (-1);
 	while (bin_path[i])
 	{
 		cmdpath = ft_strjoin(bin_path[i], cmd[0]);
-		res = access(cmdpath, R_OK);
+		res = access(cmdpath, 0 | F_OK | X_OK);
 		if (res != -1)
 		{
 			if (exec_indice)
@@ -38,14 +42,13 @@ int	cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env)
 
 int	cmd_exec(char **cmd, char **bin_path, char **env)
 {
-	int		i;
 	int		real_path;
 	int		res;
+	int		status;
 	pid_t	pid;
 
-	i = 0;
 	if ((pid = fork()) > 0)
-		wait(0);
+		waitpid(pid, &status, WUNTRACED);
 	if (pid == 0)
 	{
 		if (!(real_path = access(*cmd, R_OK)) && (res = execve(*cmd, cmd, env)) == -1)
@@ -64,7 +67,6 @@ void	cmd_replace_shortcuts(t_env *env)
 {
 	int	i;
 	int	j = 0;
-	int	len;
 	char	*tilde;
 	char	*tminus;
 	char	*res;
@@ -75,7 +77,6 @@ void	cmd_replace_shortcuts(t_env *env)
 	i = 0;
 	while (env->cmd[i])
 	{
-		len = ft_strlen(env->cmd[i]);
 		if (!ft_strncmp(env->cmd[i], "~", 1) && tilde != NULL)
 		{
 			if (!ft_strcmp(env->cmd[i], "~-"))

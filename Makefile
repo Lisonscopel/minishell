@@ -6,13 +6,12 @@
 #    By: lscopel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/09/18 14:35:23 by lscopel           #+#    #+#              #
-#    Updated: 2015/10/18 22:31:07 by lscopel          ###   ########.fr        #
+#    Updated: 2015/12/07 22:23:36 by barbare          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = ft_minishell1
 
-CC = gcc
 CFLAGS += -g -Wall -Werror -Wextra
 RM = rm -rf
 

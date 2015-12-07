@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 21:58:37 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/03 21:58:38 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/07 22:36:12 by barbare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ char				*ft_strncpy(char *dst, const char *src, size_t n)
 		i++;
 	}
 	while (i < n)
-		dst[i++] = '\0';
+	{
+		dst[i] = '\0';
+		++i;
+	}
 	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:03:36 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/02 13:14:16 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/07 22:38:30 by barbare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ char	*parse_var_name(char *var, int equal)
 		i++;
 	if (equal)
 		i += 1;
-	var_name = (char *)malloc(sizeof(char) * i + 1);
+	var_name = (char *)malloc(sizeof(char) * (i + 1));
+	var_name[i] = '\0';
 	var_name = ft_strncpy(var_name, var, i);
 	return (var_name);
 }

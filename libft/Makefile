@@ -85,11 +85,11 @@ OBJ = $(SRC:%.c=$(OBJDIR)%.o)
 
 HEADER = libft.h
 
-CC = gcc
 
 INC = -I ./includes
 
 CFLAGS += -g -Wall -Wextra -Werror
+CFLAGS = -g 
 
 RM = rm -rf
 

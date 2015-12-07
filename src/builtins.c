@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 15:35:29 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/02 14:48:02 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/07 23:33:48 by barbare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_minishell1.h"
@@ -59,8 +59,12 @@ void	builtin_env(char **cmd, t_env *env)
 		builtin_export(cmd, env);
 		cmd_env_i_check(cmd, env);
 		j = path_in_cmd_is_exec(cmd, env);
+			ft_putnbr(j);
 		if (j != 0)
+		{
+			ft_putendl(cmd[j]);
 			cmd_exec(&cmd[j],env->bin, env->env);
+		}
 		else if (j == 0 && cmd_builtin_export_good_usage(cmd[1]))
 			ft_puttab(env->env, 37);
 		else
