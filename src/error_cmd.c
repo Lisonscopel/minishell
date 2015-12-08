@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 10:49:37 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 21:11:04 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 21:51:20 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ char	*error_print(const char *s1, const char *s2, const char *s3)
 	return (result);
 }
 
-int		error_cmd_nf(const char *cmd, char **bin, const unsigned int error)
+int		error_cmd_nf(char *cmd, char **bin, const unsigned int err)
 {
 	if (!bin || !*bin)
 		ft_putcolorendl("[ERROR] PATH not defined", 31);
-	else if (error == 1)
+	else if (err == 1)
 		error_print("ft_minishell1: ", "command not found: ", cmd);
-	else if (error == 2)
+	else if (err == 2)
 		error_print("ft_minishell1: ", "no such file or directory: ", cmd);
-	else if (error == 3)
+	else if (err == 3)
 		error_print("ft_minishell1: ", "permission denied: ", cmd);
 	else
 		return (-1);
-	return (error);
+	return (err);
 }
 
 void	error_builtin(char **cmd, const unsigned int error)

@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 15:37:50 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 21:12:17 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 21:50:20 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void				builtin_exit(char **cmd, t_env *env);
 int					builtin_unset(char **cmd, t_env *env);
 int					builtin_export(char **cmd, t_env *env);
 void				prompt_display(t_env *env);
-int					error_cmd_nf(const char *cmd, char **bin, const unsigned int error);
+int					error_cmd_nf(char *cmd, char **bin, const unsigned int err);
 void				error_builtin(char **cmd, const unsigned int error);
 char				*get_pwd(t_env *env);
 int					path_in_cmd_is_exec(char **cmd, t_env *env);
