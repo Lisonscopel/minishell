@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/08 01:40:22 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 01:40:24 by lscopel          ###   ########.fr       */
+/*   Created: 2015/12/08 01:01:52 by lscopel           #+#    #+#             */
+/*   Updated: 2015/12/08 01:24:18 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "ft_minishell1.h"
 
-char	*ft_strdup(const char *s1)
+void	builtin_exit(char **cmd, t_env *env)
 {
-	char *res;
+	int	i;
 
-	if (!(s1))
-		return (NULL);
-	res = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (res == NULL)
-		return (NULL);
-	ft_strcpy(res, s1);
-	return (res);
+	free(env->env);
+	if ((i = ft_tablen(cmd)) > 2)
+		ft_putendl("exit: too many arguments");
+	else if (i == 2 && ft_atoi(cmd[1]))
+		exit(ft_atoi(cmd[1]));
+	else
+		exit(0);
 }

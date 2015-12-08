@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 15:37:50 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/02 15:47:29 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 01:00:21 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void				cmd_receive(t_env env);
 int					cmd_exec(char **cmd, char **bin_path, char **env);
 int					cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env);
 int					cmd_builtin_export_good_usage(char *cmd);
+void				cmd_split(t_env *env);
 char				*env_find_str(char *var, char **env);
 int					env_find_index(char *var, char **env);
 void				env_building_min(t_env *env);

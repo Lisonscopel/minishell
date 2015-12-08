@@ -6,7 +6,7 @@
 #    By: lscopel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/09/18 14:35:23 by lscopel           #+#    #+#              #
-#    Updated: 2015/12/07 22:23:36 by barbare          ###   ########.fr        #
+#    Updated: 2015/12/08 01:03:10 by lscopel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,14 @@ RM = rm -rf
 
 SRC_PATH = ./src/
 SRC_NAME =	parse.c \
-			builtins.c \
+			builtin_env.c \
+			builtin_exit.c \
 			builtin_export.c \
 			builtin_unset.c \
 			builtin_cd.c \
-			cmd_treatment.c \
+			cmd_receive.c \
+			cmd_clean.c \
+			cmd_exec.c \
 			env_building.c \
 			env_set.c \
 			error_cmd.c \

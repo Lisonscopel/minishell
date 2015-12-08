@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   cmd_receive.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/08 01:40:22 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 01:40:24 by lscopel          ###   ########.fr       */
+/*   Created: 2015/12/08 00:57:37 by lscopel           #+#    #+#             */
+/*   Updated: 2015/12/08 01:35:16 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "ft_minishell1.h"
 
-char	*ft_strdup(const char *s1)
+void	kill_sig(int i)
 {
-	char *res;
+	kill(SIGINT, i);
+}
 
-	if (!(s1))
-		return (NULL);
-	res = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (res == NULL)
-		return (NULL);
-	ft_strcpy(res, s1);
-	return (res);
+void	cmd_receive(t_env env)
+{
+	int		ret;
+
+	while (42)
+	{
+		prompt_display(&env);
+		signal(SIGINT, kill_sig);
+		if ((ret = read(0, env.cmdline, 1023)) > 0 && env.cmdline[0] != '\n')
+		{
+			env.cmdline[ret] = '\0';
+			cmd_split(&env);
+		}
+		else if (ret <= 0)
+			ft_putendl("");
+	}
 }

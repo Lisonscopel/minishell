@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:03:36 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/07 22:38:30 by barbare          ###   ########.fr       */
+/*   Updated: 2015/12/08 00:49:27 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ char	**parse_path_to_bin(char *var)
 			i++;
 		}
 	}
-	else
-		ft_putcolorendl("[ERROR] PATH not defined", 31);
 	return (bin);
 }
 

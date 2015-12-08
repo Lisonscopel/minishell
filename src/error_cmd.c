@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 10:49:37 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/02 19:52:11 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 01:22:11 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ int		error_cmd_nf(const char *cmd, const unsigned int error)
 {
 	if (error == 1)
 		error_print("ft_minishell1: ", "command not found: ", cmd);
-	if (error == 2)
+	else if (error == 2)
 		error_print("ft_minishell1: ", "no such file or directory: ", cmd);
-	if (error == 3)
+	else if (error == 3)
 		error_print("ft_minishell1: ", "permission denied: ", cmd);
+	else if (error == 4)
+	{
+		ft_putcolorendl("[ERROR] PATH not defined", 31);
+		return (-1);
+	}
 	else
 		return (-1);
 	return (error);
@@ -44,7 +49,7 @@ void	error_builtin(char **cmd, const unsigned int error)
 	{
 		perm = parse_permissions(cmd[1]);
 		if (!perm)
-			return;
+			return ;
 		else if (perm && perm[0] == 'd' && (perm[1] == '-' || perm[3] == '-'))
 			error_print(cmd[0], ": permission denied: ", cmd[1]);
 		else if (perm && perm[0] == '-')
