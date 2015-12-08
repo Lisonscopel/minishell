@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 15:37:50 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 01:00:21 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 21:12:17 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct		s_env
 {
 	char			**env;
 	char			*oldpwd_backup;
-//	t_list			*env;
 	char			cmdline[BUFFLENGHT];
 	char			**cmd;
 	char			**bin;
@@ -49,7 +48,7 @@ typedef	struct		s_error
 
 void				cmd_receive(t_env env);
 int					cmd_exec(char **cmd, char **bin_path, char **env);
-int					cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env);
+int					cmd_bin_path(int exe, char **cmd, char **bin, char **env);
 int					cmd_builtin_export_good_usage(char *cmd);
 void				cmd_split(t_env *env);
 char				*env_find_str(char *var, char **env);
@@ -68,7 +67,7 @@ void				builtin_exit(char **cmd, t_env *env);
 int					builtin_unset(char **cmd, t_env *env);
 int					builtin_export(char **cmd, t_env *env);
 void				prompt_display(t_env *env);
-int					error_cmd_nf(const char *cmd, const unsigned int error);
+int					error_cmd_nf(const char *cmd, char **bin, const unsigned int error);
 void				error_builtin(char **cmd, const unsigned int error);
 char				*get_pwd(t_env *env);
 int					path_in_cmd_is_exec(char **cmd, t_env *env);

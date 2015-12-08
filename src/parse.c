@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 19:03:36 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 00:49:27 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 20:10:44 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ char	**parse_path_to_bin(char *var)
 	int		i;
 
 	i = 0;
-	bin = ft_strsplit(var, ':');
-	if (bin)
+	bin = NULL;
+	if (var)
 	{
+		while (*var != '=')
+			var++;
+		bin = ft_strsplit(++var, ':');
 		while (bin[i])
 		{
 			bin[i] = ft_strjoin(bin[i], "/");

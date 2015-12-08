@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/18 15:15:48 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/02 19:51:49 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 21:11:50 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ void	builtin_cd_simple_param(char **cmd, t_env *env)
 	if (ft_tablen(cmd) == 1 || !ft_strncmp(cmd[1], "-", 1))
 		res = chdir(builtin_cd_specials(cmd, env));
 	else
+	{
 		res = chdir(cmd[1]);
-	if (res == -1)
-		error_builtin(cmd, 1);
+		if (res == -1)
+			error_builtin(cmd, 1);
+	}
 }
 
 int		builtin_cd(char **cmd, t_env *env)

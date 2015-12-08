@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 10:49:37 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 01:22:11 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 21:11:04 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,16 @@ char	*error_print(const char *s1, const char *s2, const char *s3)
 	return (result);
 }
 
-int		error_cmd_nf(const char *cmd, const unsigned int error)
+int		error_cmd_nf(const char *cmd, char **bin, const unsigned int error)
 {
-	if (error == 1)
+	if (!bin || !*bin)
+		ft_putcolorendl("[ERROR] PATH not defined", 31);
+	else if (error == 1)
 		error_print("ft_minishell1: ", "command not found: ", cmd);
 	else if (error == 2)
 		error_print("ft_minishell1: ", "no such file or directory: ", cmd);
 	else if (error == 3)
 		error_print("ft_minishell1: ", "permission denied: ", cmd);
-	else if (error == 4)
-	{
-		ft_putcolorendl("[ERROR] PATH not defined", 31);
-		return (-1);
-	}
 	else
 		return (-1);
 	return (error);
@@ -45,12 +42,12 @@ void	error_builtin(char **cmd, const unsigned int error)
 {
 	char	*perm;
 
+	perm = NULL;
 	if (error == 1)
 	{
-		perm = parse_permissions(cmd[1]);
-		if (!perm)
-			return ;
-		else if (perm && perm[0] == 'd' && (perm[1] == '-' || perm[3] == '-'))
+		if (cmd[1])
+			perm = parse_permissions(cmd[1]);
+		if (perm && perm[0] == 'd' && (perm[1] == '-' || perm[3] == '-'))
 			error_print(cmd[0], ": permission denied: ", cmd[1]);
 		else if (perm && perm[0] == '-')
 			error_print(cmd[0], ": not a directory: ", cmd[1]);

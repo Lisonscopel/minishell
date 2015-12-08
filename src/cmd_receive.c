@@ -6,7 +6,7 @@
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/08 00:57:37 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 01:35:16 by lscopel          ###   ########.fr       */
+/*   Updated: 2015/12/08 16:04:17 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	cmd_receive(t_env env)
 		else if (ret <= 0)
 			ft_putendl("");
 	}
+	ft_bzero(env.cmdline, ft_strlen(env.cmdline));
 }

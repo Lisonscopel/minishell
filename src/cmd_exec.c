@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_treatment.c                                    :+:      :+:    :+:   */
+/*   cmd_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscopel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 19:15:09 by lscopel           #+#    #+#             */
-/*   Updated: 2015/12/08 01:37:38 by lscopel          ###   ########.fr       */
+/*   Created: 2015/12/08 18:50:35 by lscopel           #+#    #+#             */
+/*   Updated: 2015/12/08 21:10:51 by lscopel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
 
-int	cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env)
+int		cmd_bin_path(int exe, char **cmd, char **bin, char **env)
 {
 	int		i;
 	int		res;
@@ -20,15 +20,14 @@ int	cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env)
 
 	i = 0;
 	res = 0;
-	if (!bin_path || !*bin_path)
+	if (!bin || !*bin)
 		return (-1);
-	while (bin_path[i])
+	while (bin[i])
 	{
-		cmdpath = ft_strjoin(bin_path[i], cmd[0]);
-		res = access(cmdpath, 0 | F_OK | X_OK);
-		if (res != -1)
+		cmdpath = ft_strjoin(bin[i], cmd[0]);
+		if ((res = access(cmdpath, R_OK)) != -1)
 		{
-			if (exec_indice)
+			if (exe)
 			{
 				res = execve(cmdpath, cmd, env);
 				return (-1);
@@ -38,13 +37,35 @@ int	cmd_bin_path(int exec_indice, char **cmd, char **bin_path, char **env)
 		i++;
 		free(cmdpath);
 	}
+	error_cmd_nf(cmd[0], bin, 4);
 	return (-1);
 }
 
-int	cmd_exec(char **cmd, char **bin_path, char **env)
+void	cmd_handle_errors_or_exec(char **cmd, char **bin_path, char **env)
 {
-	int		real_path;
 	int		res;
+	int		real_path;
+
+	real_path = access(*cmd, F_OK);
+	if (!real_path && (res = execve(*cmd, cmd, env)) == -1)
+	{
+		if ((real_path = access(*cmd, R_OK)) == -1)
+			error_cmd_nf(cmd[0], bin_path, 3);
+	}
+	else if (real_path == -1 && *cmd[0] == '.')
+		error_cmd_nf(cmd[0], bin_path, 2);
+	else if (res == 0)
+		return ;
+	else
+	{
+		res = cmd_bin_path(1, cmd, bin_path, env);
+		if (real_path == -1 && res == -1)
+			error_cmd_nf(cmd[0], bin_path, 1);
+	}
+}
+
+int		cmd_exec(char **cmd, char **bin_path, char **env)
+{
 	int		status;
 	pid_t	pid;
 
@@ -52,13 +73,7 @@ int	cmd_exec(char **cmd, char **bin_path, char **env)
 		waitpid(pid, &status, WUNTRACED);
 	if (pid == 0)
 	{
-		real_path = access(*cmd, R_OK);
-		if (!real_path && (res = execve(*cmd, cmd, env)) == -1)
-			error_cmd_nf(cmd[0], 3);
-		else if (real_path == -1 && *cmd[0] == '.')
-			error_cmd_nf(cmd[0], 2);
-		else if ((res = cmd_bin_path(1, cmd, bin_path, env)) == -1)
-			error_cmd_nf(cmd[0], 4);
+		cmd_handle_errors_or_exec(cmd, bin_path, env);
 		exit(0);
 	}
 	return (0);
